@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <h2>Exchange Platform</h2>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-9">
+      <div class="row" *ngIf="askOrders && bidOrders">
+        <div class="col-sm-3">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 33%;">Ask(Id)</th>
+                <th style="width: 33%;">Quantity</th>
+                <th style="width: 33%;">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ask of askOrders | sortByPrice: 'desc'" [ngStyle]="{'background-color': ask.style}">
+                <td style="width: 33%; padding: 0 10px 0 10px;">{{ask.id}}</td>
+                <td style="width: 33%; padding: 0 10px 0 10px;">{{ask.quantity}}</td>
+                <td style="width: 33%; padding: 0 10px 0 10px;">{{ask.price}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-3">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th style="width: 33%;">Bid(Id)</th>
+              <th style="width: 33%;">Quantity</th>
+              <th style="width: 33%;">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let bid of bidOrders | sortByPrice" [ngStyle]="{'background-color': bid.style}">
+              <td style="width: 33%; padding: 0 10px 0 10px;">{{bid.id}}</td>
+              <td style="width: 33%; padding: 0 10px 0 10px;">{{bid.quantity}}</td>
+              <td style="width: 33%; padding: 0 10px 0 10px;">{{bid.price}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-sm-3">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th >Time</th>
+              <th >Match(Id)</th>
+              <th >Quantity</th>
+              <th >Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let match of matchOrders | sortByCreatedTime: 'desc'" style="cursor: pointer;" [ngStyle]="{'background-color': match.style}" (click)="showMatchDetails(match)">
+              <td style="padding: 0 10px 0 10px;">{{match.time | date: 'jms'}}</td>
+              <td style="padding: 0 10px 0 10px;">{{match.id}}</td>
+              <td style="padding: 0 10px 0 10px;">{{match.quantity}}</td>
+              <td style="padding: 0 10px 0 10px;">{{match.price}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
